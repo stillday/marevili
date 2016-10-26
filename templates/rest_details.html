@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Details</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+    <form action="/restaurant/{{ redetail.key.id() }}/details">
+        <h1>All Detais to the Restaurant {{ redetail.lokal_name }}</h1>
+        {{ redetail.lokal_kitchen }}<br>
+        <p><strong>Adresse:</strong>
+        {{ redetail.lokal_street }}
+        {{ redetail.lokal_plz }}
+        {{ redetail.lokal_place }}</p>
+        <p><strong>Wie wars es?</strong><br>
+        {{ redetail.lokal_note }}</p>
+        <p><strong>Wann war man dort?</strong><br>
+        {{ redetail.lokal_time }}</p>
+        <p><strong>Preis</strong>{% for i in range(0, redetail.lokal_price) %} &dollar; {% endfor %}
+        <strong>Rating</strong>{% for i in range(0, redetail.lokal_rating) %} &#10032; {% endfor %}</p>
+
+        <a href="/" class="button">back</a>
+        <a href="/restaurant/{{ redetail.key.id() }}/review">Review</a>
+    </form>
+</body>
+</html>

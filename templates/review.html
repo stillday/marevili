@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <form action="/restaurant/{{ reviews.key.id() }}/details" method="post">
+        <h1>Write a Review to the Restaurant {{ reviews.lokal_name }}</h1>
+        <p>
+            <input type="text"  />
+        </p>
+        <p>
+            <textarea name="newreview" cols="47" rows="10" placeholder="Schreib bitte kurz etwas über deinen Aufenthalt im Restaurant" required></textarea>
+        </p>
+        <p>
+            <label>Preis Klasse</label>
+            <select name="newprice">
+                <option value="1">&dollar;</option>
+                <option value="2">&dollar;&dollar;</option>
+                <option value="3">&dollar;&dollar;&dollar;</option>
+                <option value="4">&dollar;&dollar;&dollar;&dollar;</option>
+            </select>
+            <label>Bewertung</label>
+            <select name="newrating">
+                <option value="1">&#10032;</option>
+                <option value="2">&#10032;&#10032;</option>
+                <option value="3">&#10032;&#10032;&#10032;</option>
+                <option value="4">&#10032;&#10032;&#10032;&#10032;</option>
+                <option value="5">&#10032;&#10032;&#10032;&#10032;&#10032;</option>
+            </select>
+        </p>
+        <p>
+            <input type="date" name="newvisit">
+        </p>
+        <a href="/" class="button">back</a>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
