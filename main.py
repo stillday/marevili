@@ -105,9 +105,9 @@ class ReviewHandler(BaseHandler):
         reviews.lokal_rating = new_rating
         reviews.lokal_visit = new_visit
         reviews.put()
-        redetail = Gastro.get_by_id(int(redetail_id))
+        redetail = Gastro.get_by_id(int(reviews_id))
         params = {"redetail": redetail}
-        return self.render_template("detail.html", params=params)
+        return self.render_template("rest_details.html", params=params)
 
 
 class Review(ndb.Model):
