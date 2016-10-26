@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendation Details</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <form action="/restaurant/{{ recoms.key.id() }}/details">
+        {{ recoms.recom_name }}
+        {{ recoms.recom_street }}
+        {{ recoms.recom_plz }}
+        {{ recoms.recom_place }}
+        {{ recoms.recom_from }}
+        {{ recoms.recom_user }}
+        {% for i in range(0, recoms.recom_price) %} &dollar; {% endfor %}
+        {{ recoms.recom_kitchen }}
+
+    </form>
+</body>
+</html>

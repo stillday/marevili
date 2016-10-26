@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendation of Restaurants</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <h1>Recommendation of Restaurants</h1>
+    <a href="recom_input.html" class="button">New Recommendation</a>
+    <table>
+        {% for recom in recoms %}
+        <thead>
+            <tr>
+                <th>Küche</th>
+                <th>Name</th>
+                <th>Bezirk</th>
+                <th>Preis</th>
+                <th>Empfholen von</th>
+                <th>Eingeben von</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ recom.recom_kitchen }}</td>
+                <td><a href="/recommendation/{{ recom.key.id() }}/details">{{ recom.recom_name }}</td>
+                <td>{{ recom.recom_plz }}</td>
+                <td>{% for i in range(0, recom.recom_price) %} &dollar; {% endfor %}</td>
+                <td>{{ recom.recom_from }}</td>
+                <td>{{ recom.recom_user }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

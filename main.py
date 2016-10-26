@@ -28,13 +28,18 @@ class BaseHandler(webapp2.RequestHandler):
         template = jinja_env.get_template(view_filename)
         return self.response.out.write(template.render(params))
 
+######################################################################################################################
+# Main System with Input and Detail Handler
+######################################################################################################################
 
+#First page
 class MainHandler(BaseHandler):
     def get(self):
         gastros = Gastro.query().fetch()
         params = {"gastros": gastros}
         return self.render_template("hello.html", params=params)
 
+#Input Handler
 class InputHandler(BaseHandler): #reading the input information
     def get(self):
         return self.render_template("input.html")
@@ -56,7 +61,7 @@ class InputHandler(BaseHandler): #reading the input information
         params = {"gastros": gastros}
         return self.render_template("hello.html", params=params)
 
-class Gastro(ndb.Model):
+class Gastro(ndb.Model): #push in die datenbank
     lokal_name = ndb.StringProperty()
     lokal_street = ndb.StringProperty()
     lokal_plz = ndb.StringProperty()
@@ -67,6 +72,19 @@ class Gastro(ndb.Model):
     lokal_price = ndb.IntegerProperty()
     lokal_rating = ndb.IntegerProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
+
+#Detail Handler
+class DetailHandler(BaseHandler):
+    def get(self, redetail_id):
+        redetail = Gastro.get_by_id(int(redetail_id))
+        params = {"redetail": redetail}
+        return self.render_template("rest_details.html", params=params)
+
+
+#######################################################################################################################
+# Review System
+#######################################################################################################################
+
 
 class ReviewHandler(BaseHandler):
     def get(self, reviews_id):
@@ -95,20 +113,72 @@ class ReviewHandler(BaseHandler):
 class Review(ndb.Model):
     review_user = ndb.StringProperty()
     review_note = ndb.StringProperty()
-    review_price = ndb.StringProperty()
-    review_rating = ndb.StringProperty()
+    review_price = ndb.IntegerProperty()
+    review_rating = ndb.IntegerProperty()
     review_visit = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
 
-class DetailHandler(BaseHandler):
-    def get(self, redetail_id):
-        redetail = Gastro.get_by_id(int(redetail_id))
-        params = {"redetail": redetail}
-        return self.render_template("rest_details.html", params=params)
+
+#######################################################################################################################
+# Recommendation with input and detail Handler
+#######################################################################################################################
+
+#Recommendation View
+class RecommendationHandler(BaseHandler):
+    def get(self):
+        recoms = Recommendation.query().fetch()
+        params = {"recoms": recoms}
+        return self.render_template("recommendation.html", params=params)
+
+#Recommendation Input
+class RecomInputHandler(BaseHandler):
+    def get(self):
+        return self.render_template("recom_input.html")
+
+    def post(self):
+        recname = self.request.get("name")
+        recstreet = self.request.get("street")
+        recplz = self.request.get("plz")
+        recplace = self.request.get("ort")
+        recfrom = self.request.get("from")
+        recuser = self.request.get("user")
+        recprice = int(self.request.get("price"))
+        reckitchen = self.request.get("kueche")
+
+        recom = Recommendation(recom_name = recname, recom_street = recstreet, recom_plz = recplz, recom_place = recplace, recom_from = recfrom, recom_user = recuser, recom_price = recprice, recom_kitchen = reckitchen)
+        recom.put()
+        recoms = Recommendation.query().fetch()
+        params = {"recoms": recoms}
+        return self.render_template("recommendation.html", params=params)
+
+class Recommendation(ndb.Model):
+    recom_name = ndb.StringProperty()
+    recom_street = ndb.StringProperty()
+    recom_plz = ndb.StringProperty()
+    recom_place = ndb.StringProperty()
+    recom_from = ndb.StringProperty()
+    recom_user = ndb.StringProperty()
+    recom_price = ndb.IntegerProperty()
+    recom_kitchen = ndb.StringProperty()
+    created = ndb.DateTimeProperty(auto_now_add=True)
+
+#Recommendation Detail
+class RecomDetailHandler(BaseHandler):
+    def get(self, recoms_id):
+        recoms = Recommendation.get_by_id(int(recoms_id))
+        params = {"recoms": recoms}
+        return self.render_template("recom_details.html", params=params)
+
+#######################################################################################################################
+# Webapp System
+#######################################################################################################################
 
 app = webapp2.WSGIApplication([
     webapp2.Route('/', MainHandler),
     webapp2.Route('/input.html', InputHandler),
+    webapp2.Route('/recommendation.html', RecommendationHandler),
+    webapp2.Route('/recom_input.html', RecomInputHandler),
     webapp2.Route('/restaurant/<reviews_id:\d+>/review', ReviewHandler),
     webapp2.Route('/restaurant/<redetail_id:\d+>/details', DetailHandler, name="review-list"),
+    webapp2.Route('/recommendation/<recoms_id:\d+>/details', RecomDetailHandler),
 ], debug=True)
