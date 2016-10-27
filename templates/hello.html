@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-    <h1>Hello, to the Manage Restaurant Visit List!</h1>
 
-    <a href="input.html" class="button">New Restaurant</a>
+{% if logged_in %}
+    <h1>Hello {{ user.nickname() }}, to the Manage Restaurant Visit List!</h1>
+
+    <p><a href="{{ logout_url }}">Logout</a></p>
+
+ <a href="input.html" class="button">New Restaurant</a>
     <a href="recommendation.html" class="button">Recommendation</a>
 
     <table>
@@ -34,5 +38,12 @@
         {% endfor %}
         </tbody>
     </table>
+
+{% else %}
+    <h1>Hello, to the Manage Restaurant Visit List!</h1>
+
+    <p>Please login here: <a href="{{ login_url }}">Login</a></p>
+{% endif %}
+
 </body>
 </html>

@@ -4,6 +4,7 @@ import os
 import jinja2
 import webapp2
 from google.appengine.ext import ndb
+from google.appengine.api import users
 
 
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
@@ -36,7 +37,16 @@ class BaseHandler(webapp2.RequestHandler):
 class MainHandler(BaseHandler):
     def get(self):
         gastros = Gastro.query().fetch()
-        params = {"gastros": gastros}
+        user = users.get_current_user()
+        logged_in = user is not None
+
+        params = {"gastros": gastros, "user": user, "logged_in": logged_in}
+
+        if logged_in:
+            params["logout_url"] = users.create_logout_url('/')
+        else:
+            params["login_url"] =  users.create_login_url('/')
+
         return self.render_template("hello.html", params=params)
 
 #Input Handler
@@ -45,6 +55,13 @@ class InputHandler(BaseHandler): #reading the input information
         return self.render_template("input.html")
 
     def post(self):
+        user = users.get_current_user()
+
+        if not user:
+            self.render_template("permissiondenied.html" ,params={"login_url": users.create_login_url('/')})
+            return
+
+
         rename = self.request.get("name")  #name of the Restaurant
         restreet = self.request.get("street") #street of the Restaurant
         replz = self.request.get("plz") #post code of the Restaurant
@@ -55,13 +72,14 @@ class InputHandler(BaseHandler): #reading the input information
         rating = int(self.request.get("rating")) #Self Rating of the Restaurant
         rekitchen = self.request.get("kueche") #what for kitchen gives in the Restaurant
 
-        lokal = Gastro(lokal_name = rename, lokal_street = restreet, lokal_plz = replz, lokal_place = replace, lokal_note = reinfo, lokal_time = revisit, lokal_kitchen = rekitchen, lokal_rating = rating, lokal_price = price)
+        lokal = Gastro(lokal_user = user.email(), lokal_name = rename, lokal_street = restreet, lokal_plz = replz, lokal_place = replace, lokal_note = reinfo, lokal_time = revisit, lokal_kitchen = rekitchen, lokal_rating = rating, lokal_price = price)
         lokal.put()
         gastros = Gastro.query().fetch()
         params = {"gastros": gastros}
         return self.render_template("hello.html", params=params)
 
 class Gastro(ndb.Model): #push in die datenbank
+    lokal_user = ndb.StringProperty()
     lokal_name = ndb.StringProperty()
     lokal_street = ndb.StringProperty()
     lokal_plz = ndb.StringProperty()
@@ -136,28 +154,34 @@ class RecomInputHandler(BaseHandler):
         return self.render_template("recom_input.html")
 
     def post(self):
-        recname = self.request.get("name")
+        user = users.get_current_user()
+
+        if not user:
+            self.render_template("permissiondenied.html", params={"login_url": users.create_login_url('/')})
+            return
+
         recstreet = self.request.get("street")
         recplz = self.request.get("plz")
         recplace = self.request.get("ort")
         recfrom = self.request.get("from")
-        recuser = self.request.get("user")
+        recuserself = self.request.get("user")
         recprice = int(self.request.get("price"))
         reckitchen = self.request.get("kueche")
 
-        recom = Recommendation(recom_name = recname, recom_street = recstreet, recom_plz = recplz, recom_place = recplace, recom_from = recfrom, recom_user = recuser, recom_price = recprice, recom_kitchen = reckitchen)
+        recom = Recommendation(recom_user = user.email(), recom_street = recstreet, recom_plz = recplz, recom_place = recplace, recom_from = recfrom, recom_user_self = recuserself, recom_price = recprice, recom_kitchen = reckitchen)
         recom.put()
         recoms = Recommendation.query().fetch()
         params = {"recoms": recoms}
         return self.render_template("recommendation.html", params=params)
 
 class Recommendation(ndb.Model):
+    recom_aut= ndb.StringProperty()
     recom_name = ndb.StringProperty()
     recom_street = ndb.StringProperty()
     recom_plz = ndb.StringProperty()
     recom_place = ndb.StringProperty()
     recom_from = ndb.StringProperty()
-    recom_user = ndb.StringProperty()
+    recom_user_self = ndb.StringProperty()
     recom_price = ndb.IntegerProperty()
     recom_kitchen = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
