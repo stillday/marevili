@@ -6,26 +6,33 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+<div class="titeltop">
     <h1>Recommendation of Restaurants</h1>
-    <a href="recom_input.html" class="button">New Recommendation</a>
-    <a href="/" class="button"> Back </a>
+</div>
+<p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
+<div class="input-button">
+    <a href="recom_input.html"><button class="btn btn-info" role="button">New Recommendation</button></a>
+    <a href="/"><button class="btn btn-info" role="button">back</button></a>
+</div>
     <table>
-        {% for recom in recoms %}
         <thead>
             <tr>
                 <th>Küche</th>
                 <th>Name</th>
                 <th>Bezirk</th>
+                <th>Ort</th>
                 <th>Preis</th>
                 <th>Empfholen von</th>
                 <th>Eingeben von</th>
             </tr>
         </thead>
+        {% for recom in recoms %}
         <tbody>
             <tr>
                 <td>{{ recom.recom_kitchen }}</td>
                 <td><a href="/recommendation/{{ recom.key.id() }}/details">{{ recom.recom_name }}</td>
                 <td>{{ recom.recom_plz }}</td>
+                <td>{{ recom.recom_place }}</td>
                 <td>{% for i in range(0, recom.recom_price) %} &dollar; {% endfor %}</td>
                 <td>{{ recom.recom_from }}</td>
                 <td>{{ recom.recom_user }}</td>

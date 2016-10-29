@@ -75,7 +75,9 @@ class InputHandler(BaseHandler): #reading the input information
         lokal = Gastro(lokal_user = user.email(), lokal_name = rename, lokal_street = restreet, lokal_plz = replz, lokal_place = replace, lokal_note = reinfo, lokal_time = revisit, lokal_kitchen = rekitchen, lokal_rating = rating, lokal_price = price)
         lokal.put()
         gastros = Gastro.query().fetch()
-        params = {"gastros": gastros}
+        user = users.get_current_user()
+        logged_in = user is not None
+        params = {"gastros": gastros, "user": user, "logged_in": logged_in}
         return self.render_template("hello.html", params=params)
 
 class Gastro(ndb.Model): #push in die datenbank
@@ -154,28 +156,29 @@ class RecomInputHandler(BaseHandler):
         return self.render_template("recom_input.html")
 
     def post(self):
-        user = users.get_current_user()
+        user = users.get_current_user() #User Login Information for Database
 
         if not user:
             self.render_template("permissiondenied.html", params={"login_url": users.create_login_url('/')})
             return
 
-        recstreet = self.request.get("street")
-        recplz = self.request.get("plz")
-        recplace = self.request.get("ort")
-        recfrom = self.request.get("from")
-        recuserself = self.request.get("user")
-        recprice = int(self.request.get("price"))
-        reckitchen = self.request.get("kueche")
+        recname = self.request.get("name") #Restaurant Name
+        recstreet = self.request.get("street") #Restaurant Street
+        recplz = self.request.get("plz") # Restaurant Zip Code
+        recplace = self.request.get("ort") #Restaurant Place
+        recfrom = self.request.get("from") #Restaurant Tip from
+        recuserself = self.request.get("user") #User Name
+        recprice = int(self.request.get("price")) #Price Ranking
+        reckitchen = self.request.get("kueche") #what kind of kitchen
 
-        recom = Recommendation(recom_user = user.email(), recom_street = recstreet, recom_plz = recplz, recom_place = recplace, recom_from = recfrom, recom_user_self = recuserself, recom_price = recprice, recom_kitchen = reckitchen)
+        recom = Recommendation(recom_user = user.email(), recom_name = recname, recom_street = recstreet, recom_plz = recplz, recom_place = recplace, recom_from = recfrom, recom_user_self = recuserself, recom_price = recprice, recom_kitchen = reckitchen)
         recom.put()
         recoms = Recommendation.query().fetch()
         params = {"recoms": recoms}
         return self.render_template("recommendation.html", params=params)
 
 class Recommendation(ndb.Model):
-    recom_aut= ndb.StringProperty()
+    recom_user = ndb.StringProperty()
     recom_name = ndb.StringProperty()
     recom_street = ndb.StringProperty()
     recom_plz = ndb.StringProperty()
@@ -192,6 +195,18 @@ class RecomDetailHandler(BaseHandler):
         recoms = Recommendation.get_by_id(int(recoms_id))
         params = {"recoms": recoms}
         return self.render_template("recom_details.html", params=params)
+
+######################################################################################################################
+#Recommendation push to Restaurant List
+######################################################################################################################
+
+#class RecomToRest(BaseHandler):
+#    def get(self, recoms_id:
+#        recoms = Recommendation.get_by_id(int(recoms_id))
+#        params = {"recoms": recoms}
+#        return self.render_template("recom_push.html", params=params)
+
+ #   def post(self, recoms_id]:
 
 #######################################################################################################################
 # Webapp System

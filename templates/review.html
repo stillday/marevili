@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+<div class="forms">
     <form action="/restaurant/{{ reviews.key.id() }}/review" method="post">
         <h1>Write a Review to the Restaurant {{ reviews.lokal_name }}</h1>
         <p>
@@ -34,8 +35,9 @@
         <p>
             <input type="date" name="newvisit">
         </p>
-        <a href="/" class="button"> Back </a>
-        <button type="submit">Send</button>
+        <a href="/"><button class="btn btn-primary" type="button">Back</button></a>
+        <button class="btn btn-primary" type="submit">Eintragen</button>
     </form>
+</div>
 </body>
 </html>

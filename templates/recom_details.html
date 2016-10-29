@@ -6,16 +6,22 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+<div class="detail-info">
+    <a href="/recommendation.html"><button class="btn btn-primary" type="button">Back</button></a>
     <form action="/recommendation/{{ recoms.key.id() }}/details">
-        {{ recoms.recom_name }}
-        {{ recoms.recom_street }}
-        {{ recoms.recom_plz }}
-        {{ recoms.recom_place }}
-        {{ recoms.recom_from }}
-        {{ recoms.recom_user }}
-        {% for i in range(0, recoms.recom_price) %} &dollar; {% endfor %}
-        {{ recoms.recom_kitchen }}
-
+         <div class="detail-header">
+            <p>
+                <a1>{{ recoms.recom_name }}</a1> - <em>{{ recoms.recom_kitchen }}</em><br>
+                <a2>{{ recoms.recom_street }} {{ recoms.recom_plz }} {{ recoms.recom_place }}</a2>
+            </p>
+         </div>
+        <div class="detail-text">
+            {% for i in range(0, recoms.recom_price) %} &dollar; {% endfor %} Price - Registered by {{ recoms.recom_user }}
+        <p>
+            <a1>Tip from:</a1> {{ recoms.recom_from }}
+        </p>
+        </div>
     </form>
+</div>
 </body>
 </html>

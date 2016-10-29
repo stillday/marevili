@@ -2,47 +2,55 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Manage Restaurant Visit List</title>
+    <title>Restaurant-Visit Manager</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
 {% if logged_in %}
-    <h1>Hello {{ user.nickname() }}, to the Manage Restaurant Visit List!</h1>
+<div class="titeltop">
+    <h1>Hello {{ user.nickname() }}, to the Restaurant-Visit Manager!</h1>
+</div>
+<p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
 
-    <p><a href="{{ logout_url }}">Logout</a></p>
-
- <a href="input.html" class="button">New Restaurant</a>
-    <a href="recommendation.html" class="button">Recommendation</a>
-
+<div class="input-button">
+    <a href="input.html"><button class="btn btn-info" role="button">New Restaurant</button></a>
+    <a href="recommendation.html"><button class="btn btn-info" role="button">Recommendation</button></a>
+</div>
     <table>
-        {% for gastro in gastros %}
         <thead>
             <tr>
                 <th>Küche</th>
                 <th>Name</th>
                 <th>Bezirk</th>
+                <th>Stadt</th>
                 <th>Preis</th>
                 <th>Bewertung</th>
             </tr>
         </thead>
         <tbody>
+        {% for gastro in gastros %}
             <tr>
                 <td>{{ gastro.lokal_kitchen }}</td>
                 <td><a href="/restaurant/{{ gastro.key.id() }}/details">{{ gastro.lokal_name }}</td>
                 <td>{{ gastro.lokal_plz }}</td>
+                <td>{{ gastro.lokal_place }}</td>
                 <td>{% for i in range(0, gastro.lokal_price) %} &dollar; {% endfor %}</td>
                 <td>{% for i in range(0, gastro.lokal_rating) %} &#10032; {% endfor %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+</div>
 {% else %}
-    <h1>Hello, to the Manage Restaurant Visit List!</h1>
-
-    <p>Please login here: <a href="{{ login_url }}">Login</a></p>
+<div class="notlog">
+    <div class="jumbotron">
+        <h1>Welcome, to the Restaurant-Visit Manager!</h1>
+        <p>Please login here:</p>
+        <p><a href="{{ login_url }}"><button class="btn-primary btn-lg"  role="button">Google-Login</button></a></p>
+    </div>
+</div>
 {% endif %}
 
 </body>

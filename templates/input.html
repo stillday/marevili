@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Input form for a new Restaurant</title>
@@ -7,28 +7,32 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+<div class="titeltop">
     <h1>Eingabe eines neuen Restaurants</h1>
-
+</div>
+<div class="forms">
     <form method="post">
         <p>
-            <input type="text" name="name" placeholder="Restaurant Name" /><br>
-            <input type="text" name="street" placeholder="Straße und Hausnummer" /><br>
-            <input type="text" name="plz" placeholder="PLZ" />
-            <input type="text" name="ort" placeholder="Ort" />
+            <input type="text" name="name" placeholder="Restaurant Name" required="required" /><br>
+            <input type="text" name="street" placeholder="Straße und Hausnummer" required="required"/><br>
+            <input type="text" name="plz" placeholder="PLZ" required="required" />
+            <input type="text" name="ort" placeholder="Ort" required="required" />
         </p>
         <p>
-            <textarea name="info" cols="47" rows="10" placeholder="Schreib bitte kurz etwas über deinen Aufenthalt im Restaurant"></textarea><br>
+            <textarea name="info" placeholder="Schreib bitte kurz etwas über deinen Aufenthalt im Restaurant" required></textarea><br>
         </p>
         <p>
-            <label>Preis Klasse</label>
-            <select name="price">
+            <label>Preisklasse</label>
+            <select name="price" required>
+                <option></option>
                 <option value="1">&dollar;</option>
                 <option value="2">&dollar;&dollar;</option>
                 <option value="3">&dollar;&dollar;&dollar;</option>
                 <option value="4">&dollar;&dollar;&dollar;&dollar;</option>
             </select>
             <label>Bewertung</label>
-            <select name="rating">
+            <select name="rating" required>
+                <option></option>
                 <option value="1">&#10032;</option>
                 <option value="2">&#10032;&#10032;</option>
                 <option value="3">&#10032;&#10032;&#10032;</option>
@@ -45,11 +49,13 @@
             <input type="text" name="kueche" required="required"/>
         </p>
         <p>
-            <button type="submit">Eintragen</button>
-            <button type="reset">Reset</button>
+            <button class="btn btn-primary" type="submit">Eintragen</button>
+            <button class="btn btn-warning" type="reset">Reset</button>
+            <a href="/"><button >Back</button></a>
+
         </p>
 
     </form>
-
+</div>
 </body>
 </html>
