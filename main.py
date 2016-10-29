@@ -113,6 +113,11 @@ class ReviewHandler(BaseHandler):
         return self.render_template("review.html", params=params)
 
     def post(self, reviews_id):
+        user = users.get_current_user()
+
+        if not user:
+            self.render_template("permissiondenied.html", params={"login_url": users.create_login_url('/')})
+            return
         #new_user = self.request.get("newuser")
         new_review = self.request.get("newreview")
         new_price = int(self.request.get("newprice"))
@@ -200,13 +205,50 @@ class RecomDetailHandler(BaseHandler):
 #Recommendation push to Restaurant List
 ######################################################################################################################
 
-#class RecomToRest(BaseHandler):
-#    def get(self, recoms_id:
-#        recoms = Recommendation.get_by_id(int(recoms_id))
-#        params = {"recoms": recoms}
-#        return self.render_template("recom_push.html", params=params)
+class RecomToRest(BaseHandler):
+    def get(self, recoms_id):
+        recoms = Recommendation.get_by_id(int(recoms_id))
+        params = {"recoms": recoms}
+        return self.render_template("recom_push.html", params=params)
 
- #   def post(self, recoms_id]:
+    def post(self, recoms_id):
+        user = users.get_current_user()
+
+        if not user:
+            self.render_template("permissiondenied.html", params={"login_url": users.create_login_url('/')})
+            return
+
+        rename = self.request.get("name")  # name of the Restaurant
+        restreet = self.request.get("street")  # street of the Restaurant
+        replz = self.request.get("plz")  # post code of the Restaurant
+        replace = self.request.get("ort")  # town/city of the Restaurant
+        reinfo = self.request.get("info")  # Note Text of the Restaurant
+        revisit = self.request.get("visit")  # Visit time of the Restaurant
+        price = int(self.request.get("price"))  # Price Info of the Restaurant
+        rating = int(self.request.get("rating"))  # Self Rating of the Restaurant
+        rekitchen = self.request.get("kueche")  # what for kitchen gives in the Restaurant
+
+        lokal = Gastro(lokal_user=user.email(), lokal_name=rename, lokal_street=restreet, lokal_plz=replz,
+                       lokal_place=replace, lokal_note=reinfo, lokal_time=revisit, lokal_kitchen=rekitchen,
+                       lokal_rating=rating, lokal_price=price)
+        lokal.put()
+        gastros = Gastro.query().fetch()
+        params = {"gastros": gastros}
+        return self.render_template("hello.html", params=params)
+
+
+class Gastro(ndb.Model):  # push in die datenbank
+    lokal_user = ndb.StringProperty()
+    lokal_name = ndb.StringProperty()
+    lokal_street = ndb.StringProperty()
+    lokal_plz = ndb.StringProperty()
+    lokal_place = ndb.StringProperty()
+    lokal_note = ndb.StringProperty()
+    lokal_time = ndb.StringProperty()
+    lokal_kitchen = ndb.StringProperty()
+    lokal_price = ndb.IntegerProperty()
+    lokal_rating = ndb.IntegerProperty()
+    created = ndb.DateTimeProperty(auto_now_add=True)
 
 #######################################################################################################################
 # Webapp System
@@ -220,4 +262,5 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/restaurant/<reviews_id:\d+>/review', ReviewHandler),
     webapp2.Route('/restaurant/<redetail_id:\d+>/details', DetailHandler, name="review-list"),
     webapp2.Route('/recommendation/<recoms_id:\d+>/details', RecomDetailHandler),
+    webapp2.Route('/recommendation/<recoms_id:\d+>/visit-input', RecomToRest),
 ], debug=True)

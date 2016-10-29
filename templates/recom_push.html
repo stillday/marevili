@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Input form for a new Restaurant</title>
-
+    <title>Visit from a Recommendation</title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-<div class="titeltop">
-    <h1>Eingabe eines neuen Restaurants</h1>
-</div>
 <div class="forms">
-    <form method="post">
+    <form action="/recommendation/{{ recoms.key.id() }}/visit-input">
         <p>
-            <input type="text" name="name" placeholder="Restaurant Name" required="required" /><br>
-            <input type="text" name="street" placeholder="Straße und Hausnummer" required="required"/><br>
-            <input type="text" name="plz" placeholder="PLZ" required="required" />
-            <input type="text" name="ort" placeholder="Ort" required="required" />
+            <input type="text" name="name" placeholder="Restaurant Name" required="required" value="{{ recoms.recom_name }}"/><br>
+            <input type="text" name="street" placeholder="Straße und Hausnummer" required="required" value="{{ recoms.recom_street }}"/><br>
+            <input type="text" name="plz" placeholder="PLZ" required="required" value="{{ recoms.recom_plz }}" />
+            <input type="text" name="ort" placeholder="Ort" required="required"value="{{ recoms.recom_place }}"/>
         </p>
         <p>
             <textarea name="info" placeholder="Schreib bitte kurz etwas über deinen Aufenthalt im Restaurant" required></textarea><br>
