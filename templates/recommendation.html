@@ -11,7 +11,7 @@
 </div>
 <p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
 <div class="input-button">
-    <a href="recom_input.html"><button class="btn btn-info" role="button">New Recommendation</button></a>
+    <a href="input.html"><button class="btn btn-info" role="button">New Recommendation</button></a>
     <a href="/"><button class="btn btn-info" role="button">back</button></a>
 </div>
     <table>
@@ -29,13 +29,13 @@
         {% for recom in recoms %}
         <tbody>
             <tr>
-                <td>{{ recom.recom_kitchen }}</td>
-                <td><a href="/recommendation/{{ recom.key.id() }}/details">{{ recom.recom_name }}</td>
-                <td>{{ recom.recom_plz }}</td>
-                <td>{{ recom.recom_place }}</td>
-                <td>{% for i in range(0, recom.recom_price) %} &dollar; {% endfor %}</td>
-                <td>{{ recom.recom_from }}</td>
-                <td>{{ recom.recom_user }}</td>
+                <td>{{ recom.kitchen }}</td>
+                <td><a href="/recommendation/{{ recom.key.id() }}/details">{{ recom.name }}</td>
+                <td>{{ recom.plz }}</td>
+                <td>{{ recom.place }}</td>
+                <td>{% for i in range(0, recom.price) %} &dollar; {% endfor %}</td>
+                <td>{{ recom.from }}</td>
+                <td>{{ recom.user }}</td>
             </tr>
         {% endfor %}
         </tbody>

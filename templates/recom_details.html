@@ -11,14 +11,14 @@
     <form action="/recommendation/{{ recoms.key.id() }}/details">
          <div class="detail-header">
             <p>
-                <a1>{{ recoms.recom_name }}</a1> - <em>{{ recoms.recom_kitchen }}</em><br>
-                <a2>{{ recoms.recom_street }} {{ recoms.recom_plz }} {{ recoms.recom_place }}</a2>
+                <a1>{{ recoms.name }}</a1> - <em>{{ recoms.kitchen }}</em><br>
+                <a2>{{ recoms.street }} {{ recoms.plz }} {{ recoms.place }}</a2>
             </p>
          </div>
         <div class="detail-text">
-            {% for i in range(0, recoms.recom_price) %} &dollar; {% endfor %} Price - Registered by {{ recoms.recom_user }}
+            {% for i in range(0, recoms.price) %} &dollar; {% endfor %} Price - Registered by {{ recoms.user }}
         <p>
-            <a1>Tip from:</a1> {{ recoms.recom_from }}
+            <a1>Tip from:</a1> {{ recoms.from }}
         </p>
         </div>
         <p>

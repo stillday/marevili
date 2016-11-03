@@ -32,12 +32,12 @@
         <tbody>
         {% for gastro in gastros %}
             <tr>
-                <td>{{ gastro.lokal_kitchen }}</td>
-                <td><a href="/restaurant/{{ gastro.key.id() }}/details">{{ gastro.lokal_name }}</td>
-                <td>{{ gastro.lokal_plz }}</td>
-                <td>{{ gastro.lokal_place }}</td>
-                <td>{% for i in range(0, gastro.lokal_price) %} &dollar; {% endfor %}</td>
-                <td>{% for i in range(0, gastro.lokal_rating) %} &#10032; {% endfor %}</td>
+                <td>{{ gastro.kitchen }}</td>
+                <td><a href="/restaurant/{{ gastro.key.id() }}/details">{{ gastro.name }}</td>
+                <td>{{ gastro.plz }}</td>
+                <td>{{ gastro.place }}</td>
+                <td>{% for i in range(0, gastro.price) %} &dollar; {% endfor %}</td>
+                <td>{% for i in range(0, gastro.rating) %} &#10032; {% endfor %}</td>
             </tr>
         {% endfor %}
         </tbody>
