@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="forms">
-    <form action="/recommendation/{{ recoms.key.id() }}/visit-input">
+    <form action="/recommendation/{{ recoms.key.id() }}/visit-input" method="post">
         <p>
             <input type="text" name="name" placeholder="Restaurant Name" required="required" value="{{ recoms.recom_name }}"/><br>
             <input type="text" name="street" placeholder="Straße und Hausnummer" required="required" value="{{ recoms.recom_street }}"/><br>

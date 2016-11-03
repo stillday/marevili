@@ -3,6 +3,9 @@
 import os
 import jinja2
 import webapp2
+import json
+#import simplejson, urllib
+from google.appengine.api import urlfetch
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
@@ -28,6 +31,24 @@ class BaseHandler(webapp2.RequestHandler):
             params = {}
         template = jinja_env.get_template(view_filename)
         return self.response.out.write(template.render(params))
+
+################################################################################################################
+# Google Place Api Handler
+################################################################################################################
+GEOCODE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json'
+
+def geocode(address, **geo_args):
+    geo_args.update({
+        'address': address
+    })
+
+    url = GEOCODE_BASE_URL + '?' + urllib.urlencode(geo_args)
+    result = simplejson.load(urllib.urlopen(url))
+
+    print simplejson.dumps([s['formatted_address'] for s in result['results']], indent=2)
+
+if __name__ == '__main__':
+    geocode(address="San+Francisco")
 
 ######################################################################################################################
 # Main System with Input and Detail Handler
@@ -93,9 +114,18 @@ class Gastro(ndb.Model): #push in die datenbank
     lokal_rating = ndb.IntegerProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
 
-#Detail Handler
+################################################################################################################
+#Restaurant Detail Handler
+################################################################################################################
+
 class DetailHandler(BaseHandler):
     def get(self, redetail_id):
+       # url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=seoul+wien&key=AIzaSyBKdIPR1Q6TzIvjJuJzIyvybo6Mg1JLm64"
+
+        #result = urlfetch.fetch(url)
+
+       # restaurant_info = json.loads(result.content)
+
         redetail = Gastro.get_by_id(int(redetail_id))
         params = {"redetail": redetail}
         return self.render_template("rest_details.html", params=params)
@@ -233,22 +263,14 @@ class RecomToRest(BaseHandler):
                        lokal_rating=rating, lokal_price=price)
         lokal.put()
         gastros = Gastro.query().fetch()
-        params = {"gastros": gastros}
+        user = users.get_current_user()
+        logged_in = user is not None
+        params = {"gastros": gastros, "user": user, "logged_in": logged_in}
+        recoms = Recommendation.get_by_id(int(recoms_id))
+        recoms.key.delete()
         return self.render_template("hello.html", params=params)
 
 
-class Gastro(ndb.Model):  # push in die datenbank
-    lokal_user = ndb.StringProperty()
-    lokal_name = ndb.StringProperty()
-    lokal_street = ndb.StringProperty()
-    lokal_plz = ndb.StringProperty()
-    lokal_place = ndb.StringProperty()
-    lokal_note = ndb.StringProperty()
-    lokal_time = ndb.StringProperty()
-    lokal_kitchen = ndb.StringProperty()
-    lokal_price = ndb.IntegerProperty()
-    lokal_rating = ndb.IntegerProperty()
-    created = ndb.DateTimeProperty(auto_now_add=True)
 
 #######################################################################################################################
 # Webapp System
