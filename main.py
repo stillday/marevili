@@ -54,7 +54,10 @@ if __name__ == '__main__':
 # Main System with Input and Detail Handler
 ######################################################################################################################
 
-#First page
+##########################################
+#First page                             ##
+##########################################
+
 class MainHandler(BaseHandler):
     def get(self):
         gastros = Gastro.query().fetch()
@@ -70,7 +73,10 @@ class MainHandler(BaseHandler):
 
         return self.render_template("hello.html", params=params)
 
-#Input Handler
+##########################################
+#Input Handler                          ##
+##########################################
+
 class InputHandler(BaseHandler): #reading the input information
     def get(self):
         return self.render_template("input.html")
@@ -99,7 +105,7 @@ class InputHandler(BaseHandler): #reading the input information
         user = users.get_current_user()
         logged_in = user is not None
         params = {"gastros": gastros, "user": user, "logged_in": logged_in}
-        return self.render_template("hello.html", params=params)
+        return self.redirect_to("rest-list", params=params)
 
 class Gastro(ndb.Model): #push in die datenbank
     lokal_user = ndb.StringProperty()
@@ -178,14 +184,20 @@ class Review(ndb.Model):
 # Recommendation with input and detail Handler
 #######################################################################################################################
 
-#Recommendation View
+##################################
+#Recommendation View            ##
+##################################
+
 class RecommendationHandler(BaseHandler):
     def get(self):
         recoms = Recommendation.query().fetch()
         params = {"recoms": recoms}
         return self.render_template("recommendation.html", params=params)
 
-#Recommendation Input
+##################################
+#Recommendation Input           ##
+##################################
+
 class RecomInputHandler(BaseHandler):
     def get(self):
         return self.render_template("recom_input.html")
@@ -210,7 +222,7 @@ class RecomInputHandler(BaseHandler):
         recom.put()
         recoms = Recommendation.query().fetch()
         params = {"recoms": recoms}
-        return self.render_template("recommendation.html", params=params)
+        return self.redirect_to("rec-list", params=params)
 
 class Recommendation(ndb.Model):
     recom_user = ndb.StringProperty()
@@ -224,7 +236,9 @@ class Recommendation(ndb.Model):
     recom_kitchen = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
 
-#Recommendation Detail
+##################################
+#Recommendation Detail          ##
+##################################
 class RecomDetailHandler(BaseHandler):
     def get(self, recoms_id):
         recoms = Recommendation.get_by_id(int(recoms_id))
@@ -268,7 +282,7 @@ class RecomToRest(BaseHandler):
         params = {"gastros": gastros, "user": user, "logged_in": logged_in}
         recoms = Recommendation.get_by_id(int(recoms_id))
         recoms.key.delete()
-        return self.render_template("hello.html", params=params)
+        return self.redirect_to("rest-list", params=params)
 
 
 
@@ -277,9 +291,9 @@ class RecomToRest(BaseHandler):
 #######################################################################################################################
 
 app = webapp2.WSGIApplication([
-    webapp2.Route('/', MainHandler),
+    webapp2.Route('/', MainHandler, name="rest-list"),
     webapp2.Route('/input.html', InputHandler),
-    webapp2.Route('/recommendation.html', RecommendationHandler),
+    webapp2.Route('/recommendation.html', RecommendationHandler, name="rec-list"),
     webapp2.Route('/recom_input.html', RecomInputHandler),
     webapp2.Route('/restaurant/<reviews_id:\d+>/review', ReviewHandler),
     webapp2.Route('/restaurant/<redetail_id:\d+>/details', DetailHandler, name="review-list"),
