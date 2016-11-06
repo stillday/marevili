@@ -59,8 +59,41 @@ select {
 /* form style ende */
 
 /* Detail style */
+
+.detail-site {
+     background-image: url(menu-restaurant-vintage-table.JPG);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    width: auto;
+    height: 1000px;
+}
+
+.detail-right {
+    float: right;
+    position: relative;
+    margin-top: -45%;
+
+}
+
+detail-left {
+    float: left;
+    position: static;
+
+
+}
+
 .detail-info {
-    margin-left: 5%;
+    margin-top: ;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 30px;
+    padding-right:30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color:#eee
+
 }
 
 .detail-header {
@@ -96,6 +129,13 @@ select {
     background-color: #f8f8f8;
     font-size: 15px;
     resize: none;
+}
+
+ #map-canvas {
+  height: 300px;
+  width: 500px;
+  margin: 0px;
+  padding: 0px
 }
 
 /* Detail Style Ende */
