@@ -6,42 +6,71 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-<div class="titeltop">
-    <h1>Eingabe einer Empfehlung</h1>
-</div>
-<div class="forms">
-    <form method="post">
-        <p>
-            <input type="text" name="name" placeholder="Restaurant Name" required="required" /><br>
-            <input type="text" name="street" placeholder="Straße und Hausnummer" required="required" /><br>
-            <input type="text" name="plz" placeholder="PLZ" required="required" />
-            <input type="text" name="ort" placeholder="Ort" required="required" />
-        </p>
-       <p>
-           <input type="text" name="from" placeholder="Empfohlen von" required="required" /><br>
-           <input type="text" name="user" placeholder="Eingetragen von" required="required" /><br>
-       </p>
-        <p>
-            <label>Preis Klasse</label>
-            <select name="price" required>
-                <option></option>
-                <option value="1">&dollar;</option>
-                <option value="2">&dollar;&dollar;</option>
-                <option value="3">&dollar;&dollar;&dollar;</option>
-                <option value="4">&dollar;&dollar;&dollar;&dollar;</option>
-            </select>
+<div class="recom-input-site">
+    <div class="recom-input-top">
+        <h1>Eingabe einer Empfehlung</h1>
+        <div class="forms">
+            <form method="post">
+                <p>
+                    <input type="text" name="name" placeholder="Restaurant Name" required="required" /><br>
+                    <input type="text" name="street" placeholder="Straße und Hausnummer" required="required" /><br>
+                    <input type="text" name="plz" placeholder="PLZ" required="required" />
+                    <input type="text" name="ort" placeholder="Ort" required="required" />
+                </p>
+               <p>
+                   <input type="text" name="from" placeholder="Empfohlen von" required="required" /><br>
+                   <input type="text" name="user" placeholder="Eingetragen von" required="required" /><br>
+               </p>
+                <p>
+                    <label>Preis Klasse</label>
+                    <select name="price" required>
+                        <option></option>
+                        <option value="1">&dollar;</option>
+                        <option value="2">&dollar;&dollar;</option>
+                        <option value="3">&dollar;&dollar;&dollar;</option>
+                        <option value="4">&dollar;&dollar;&dollar;&dollar;</option>
+                    </select>
 
-        </p>
-        <p>
-            Welche Küche wird angeboten:
-            <input type="text" name="kueche" required="required"/>
-        </p>
-        <p>
-            <button class="btn btn-primary" type="submit">Eintragen</button>
-            <button class="btn btn-warning" type="reset">Reset</button>
-            <a href="/recommendation.html"><button class="btn btn-danger" type="button">Back</button></a>
-        </p>
-</form>
+                </p>
+                <p>
+                    <label>Welche Küche wird angeboten:</label>
+                    <select name="kueche" required>
+                        <option></option>
+                        <option value="Asiatisch">Asiatisch</option>
+                        <option value="Beisel">Beisel</option>
+                        <option value="Burger">Burger</option>
+                        <option value="Bulgarisch">Bulgarisch</option>
+                        <option value="Chinesisch">Chinesisch</option>
+                        <option value="Französisch">Französisch</option>
+                        <option value="Georgisch">Georgisch</option>
+                        <option value="Grillhouse/Steak">Grillhouse/Steak</option>
+                        <option value="Hausmannskost">Hausmannskost</option>
+                        <option value="Irish/Burger">Irish/Burger</option>
+                        <option value="Italienisch/Pizza">Italienisch/Pizza</option>
+                        <option value="Japanisch">Japanisch</option>
+                        <option value="Koreanisch">Koreanisch</option>
+                        <option value="Polnisch">Polnisch</option>
+                        <option value="Serbisch">Serbisch</option>
+                        <option value="Slowakisch">Slowakisch</option>
+                        <option value="Sushi">Sushi</option>
+                        <option value="Spanisch">Spanisch</option>
+                        <option value="Thailändisch">Thailändisch</option>
+                        <option value="Türkisch">Türkisch</option>
+                        <option value="Ungarisch">Ungarisch</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Vegetarisch">Vegetarisch</option>
+                        <option value="Vietnamesisch">Vietnamesisch</option>
+                        <option value="Wiener Küche">Wiener Küche</option>
+                    </select>
+                </p>
+                <p>
+                    <button class="btn btn-primary" type="submit">Eintragen</button>
+                    <button class="btn btn-warning" type="reset">Reset</button>
+                    <a href="/recommendation.html"><button class="btn btn-danger" type="button">Back</button></a>
+                </p>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

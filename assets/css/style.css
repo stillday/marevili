@@ -1,9 +1,4 @@
-/*body {
-    background-image: url(IMG-20150807-WA0014.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-}*/
+
 
 .notlog {
     background-image: url(food-salad-restaurant-person.jpg);
@@ -48,7 +43,7 @@ select {
 
 .forms {
     float: inherit;
-    margin-left: 10%;
+    margin-left: ;
 }
 
 .forms p {
@@ -72,14 +67,32 @@ select {
     float: right;
     position: relative;
     margin-top: -45%;
+}
+
+.recom-detail-right {
+    float: right;
+    padding-top: auto;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: auto;
+    background-color:#eee;
 
 }
 
 detail-left {
     float: left;
     position: static;
+}
 
-
+.recom-detail-left {
+    float: left;
+    padding-top: auto;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: auto;
+    background-color:#eee;
 }
 
 .detail-info {
@@ -92,8 +105,20 @@ detail-left {
     padding-left: 30px;
     margin-bottom: 30px;
     color: inherit;
-    background-color:#eee
+    background-color:#eee;
+}
 
+.recom-detail-info {
+    margin-top: ;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 30px;
+    padding-right:30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color:;
 }
 
 .detail-header {
@@ -174,11 +199,64 @@ th {
     color: white;
 }
 
+
+/* Table Style ende */
+
+/* Eingeloggte anzeige */
+
+.login-page {
+    background-image: url(food-salad-restaurant-person.jpg);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    width: auto;
+    height: 1000px;
+}
+
 .titeltop {
-    
+    margin-top: ;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 30px;
+    padding-right:30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color:#eee
+
 }
 
 .titeltop h1 {
+    color: inherit;
+    text-align: center;
+}
+
+/* Eingeloggte anzeige Ende */
+
+/* input area */
+
+.input-site {
+    background-image: url(food-salad-restaurant-person.jpg);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    width: auto;
+    height: 1000px;
+}
+
+.input-area {
+    margin-top: ;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 30px;
+    padding-right:30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color:#eee
+}
+
+.input-top h1 {
     color: inherit;
     text-align: center;
 }
@@ -188,7 +266,35 @@ th {
     margin-top: -4.5%;
     margin-bottom: 2%;
 }
-/* Table Style ende */
+
+
+/* input area end */
+
+/* recom input area */
+
+.recom-input-site {
+    background-image: url(food-salad-restaurant-person.jpg);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    width: auto;
+    height: 1000px;
+    }
+
+.recom-input-top {
+    margin-top: ;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding-top: 30px;
+    padding-right:30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color:#eee
+}
+
+/* recom input area end */
+
 
 /*Navbar */
 ul {

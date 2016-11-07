@@ -9,39 +9,40 @@
 <body>
 
 {% if logged_in %}
-<div class="titeltop">
-    <h1>Hello {{ user.nickname() }}, to the Restaurant-Visit Manager!</h1>
-</div>
-<p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
+<div class="login-page">
+    <div class="titeltop">
+        <h1>Hello {{ user.nickname() }}, to the Restaurant-Visit Manager!</h1>
+        <p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
 
-<div class="input-button">
-    <a href="input.html"><button class="btn btn-info" role="button">New Restaurant</button></a>
-    <a href="recommendation.html"><button class="btn btn-info" role="button">Recommendation</button></a>
-</div>
-    <table>
-        <thead>
-            <tr>
-                <th>Küche</th>
-                <th>Name</th>
-                <th>Bezirk</th>
-                <th>Stadt</th>
-                <th>Preis</th>
-                <th>Bewertung</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for gastro in gastros %}
-            <tr>
-                <td>{{ gastro.kitchen }}</td>
-                <td><a href="/restaurant/{{ gastro.key.id() }}/details">{{ gastro.name }}</td>
-                <td>{{ gastro.plz }}</td>
-                <td>{{ gastro.place }}</td>
-                <td>{% for i in range(0, gastro.price) %} &dollar; {% endfor %}</td>
-                <td>{% for i in range(0, gastro.rating) %} &#10032; {% endfor %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="input-button">
+            <a href="input.html"><button class="btn btn-info" role="button">New Restaurant</button></a>
+            <a href="recommendation.html"><button class="btn btn-info" role="button">Recommendation</button></a>
+        </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Küche</th>
+                        <th>Name</th>
+                        <th>Bezirk</th>
+                        <th>Stadt</th>
+                        <th>Preis</th>
+                        <th>Bewertung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for gastro in gastros %}
+                    <tr>
+                        <td>{{ gastro.kitchen }}</td>
+                        <td><a href="/restaurant/{{ gastro.key.id() }}/details">{{ gastro.name }}</td>
+                        <td>{{ gastro.plz }}</td>
+                        <td>{{ gastro.place }}</td>
+                        <td>{% for i in range(0, gastro.price) %} &dollar; {% endfor %}</td>
+                        <td>{% for i in range(0, gastro.rating) %} &#10032; {% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
 </div>
 {% else %}
 <div class="notlog">

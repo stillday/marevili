@@ -10,6 +10,7 @@ class Review(ndb.Model):
     price = ndb.IntegerProperty()
     rating = ndb.IntegerProperty()
     visit = ndb.StringProperty()
+    restaurant = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
 
 

@@ -102,13 +102,14 @@ class ReviewHandler(BaseHandler):
         if not user:
             self.render_template("permissiondenied.html", params={"login_url": users.create_login_url('/')})
             return
-        #new_user = self.request.get("newuser")
-        new_review = self.request.get("newreview")
-        new_price = int(self.request.get("newprice"))
-        new_rating = int(self.request.get("newrating"))
-        new_visit = self.request.get("newvisit")
+        #user = self.request.get("newuser")
+        review = self.request.get("newreview")
+        price = int(self.request.get("newprice"))
+        rating = int(self.request.get("newrating"))
+        visit = self.request.get("newvisit")
 
         reviews = Gastro.get_by_id(int(reviews_id))
+        lokal = Gastro(review_user = user.email(),new_review = review, new_price = price, new_rating = rating, new_visit = visit)
         reviews.note = new_review
         reviews.price = new_price
         reviews.rating = new_rating
@@ -168,7 +169,17 @@ class RecomInputHandler(BaseHandler):
 class RecomDetailHandler(BaseHandler):
     def get(self, recoms_id):
         recoms = Recommendation.get_by_id(int(recoms_id))
-        params = {"recoms": recoms}
+        q = urllib.urlencode({
+            "query": (recoms.name + " in " + recoms.place).encode(encoding='ascii', errors='ignore'),
+            "key": "AIzaSyBKdIPR1Q6TzIvjJuJzIyvybo6Mg1JLm64"
+        })
+
+        url = "https://maps.googleapis.com/maps/api/place/textsearch/json?" + q
+        result = urlfetch.fetch(url)
+
+        restaurant_info = json.loads(result.content)
+
+        params = {"recoms": recoms, "restaurant_info": restaurant_info}
         return self.render_template("recom_details.html", params=params)
 
 ######################################################################################################################
@@ -216,7 +227,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route('/', MainHandler, name="rest-list"),
     webapp2.Route('/input.html', InputHandler),
     webapp2.Route('/recommendation.html', RecommendationHandler, name="rec-list"),
-    webapp2.Route('/input.html', RecomInputHandler),
+    webapp2.Route('/recom_input.html', RecomInputHandler),
     webapp2.Route('/restaurant/<reviews_id:\d+>/review', ReviewHandler),
     webapp2.Route('/restaurant/<redetail_id:\d+>/details', DetailHandler, name="review-list"),
     webapp2.Route('/recommendation/<recoms_id:\d+>/details', RecomDetailHandler),
