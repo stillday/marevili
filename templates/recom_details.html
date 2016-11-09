@@ -45,8 +45,8 @@
 
     </script>
 </head>
-<body>
-<div class="detail-site">
+<body id="detail-site">
+<div class="">
     <div class="recom-detail-info">
         <a href="/recommendation.html"><button class="btn btn-primary" type="button">Back</button></a>
         <form action="/recommendation/{{ recoms.key.id() }}/details">
@@ -71,7 +71,7 @@
                  <p>
                     {{ restaurant_info.results[0].name }}<br>
                     {{ restaurant_info.results[0].formatted_address }}<br>
-                    Ist das Lokal geöffnet:
+                    Das Lokal ist:
                      {% if restaurant_info.results[0].opening_hours.open_now %}
                         Geöffnet
                      {% else %}

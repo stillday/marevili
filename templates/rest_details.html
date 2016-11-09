@@ -42,58 +42,70 @@
 
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
-   <script>
-        if (new {{ restaurant_info.results[0].opening_hours.open_now }} == True) {
-            document.getElementById("demo").innerHTML = "Geöffnet";
-        }
-    </script>
+
 </head>
-<body>
-<div class="detail-site">
+<body id="detail-site">
+<div class="">
     <div class="detail-info">
         <div class="detail-left">
             <a href="/"><button class="btn btn-primary" type="button">back</button></a>
-           <a href="/restaurant/{{ redetail.key.id() }}/review"><button class="btn btn-danger" type="button">Review</button></a>
-            <form action="/restaurant/{{ redetail.key.id() }}/details">
-                <div class="detail-header">
-                    <p>
-                        <a1>{{ redetail.name }}</a1> - <em>{{ redetail.kitchen }}</em><br>
-                        <a2> {{ redetail.street }} {{ redetail.plz }} {{ redetail.place }}</a2>
-                    </p>
-                </div>
-                <div class="detail-text">
-                    {% for i in range(0, redetail.rating) %} &#10032; {% endfor %} Rating -
-                    {% for i in range(0, redetail.price) %} &dollar; {% endfor %} Price
+            <a href="/restaurant/{{ redetail.key.id() }}/review"><button class="btn btn-danger" type="button">Review</button></a>
+                <form action="/restaurant/{{ redetail.key.id() }}/details">
+                    <div class="detail-header">
+                        <p>
+                            <a1>{{ redetail.name }}</a1> - <em>{{ redetail.kitchen }}</em><br>
+                            <a2> {{ redetail.street }} {{ redetail.plz }} {{ redetail.place }}</a2>
+                        </p>
+                    </div>
+                    <div class="detail-text">
+                        {% for i in range(0, redetail.rating) %} &#10032; {% endfor %} Rating -
+                        {% for i in range(0, redetail.price) %} &dollar; {% endfor %} Price
 
-                <p>
-                    <a1>Erfarungsbereicht</a1> <a2> vom {{ redetail.time }}</a2>
-                </p>
-                <p>
-                    <textarea readonly>{{ redetail.note }}
-                    </textarea>
-                </p>
-        </div>
-        <div class="detail-right">
-            <p>
-                {{ restaurant_info.results[0].name }}<br>
-                {{ restaurant_info.results[0].formatted_address }}<br>
-                {{ restaurant_info.results[0].rating }} <br>
-                Ist das Lokal geöffnet: {{ restaurant_info.results[0].opening_hours.open_now }}
-                {% if restaurant_info.results[0].opening_hours.open_now %}
-                    geöffnet
-                {% else %}
-                    geschlossen
-                {% endif %}
-            </p>
-            <p id="demo"></p>
+                            <p>
+                                <a1>Erfarungsbereicht</a1> <a2> vom {{ redetail.time }}</a2>
+                            </p>
+                            <p>
+                                {{ redetail.note }}
+                                
+                            </p>
 
-
-            <div id="map-canvas"></div>
-
-
-        </div>
+                    </div>
             </form>
+        </div>
+            <div class="detail-right">
+                <p>
+                    {{ restaurant_info.results[0].name }}<br>
+                    {{ restaurant_info.results[0].formatted_address }}<br>
+                    {{ restaurant_info.results[0].rating }} <br>
+                    Das Lokal ist:
+                    {% if restaurant_info.results[0].opening_hours.open_now %}
+                        Geöffnet
+                    {% else %}
+                        Geschlossen
+                    {% endif %}
+                </p>
+
+
+                <div id="map-canvas"></div>
+
+
+            </div>
+            
+                {% for review in reviews %}
+                <div class="detail-review">
+
+                <h3>Review</h3>
+                von User <br>
+                {{ review.user }}<br>
+                <textarea readonly>{{ review.note }}</textarea><br>
+                {% for i in range(0, review.rating) %} &#10032; {% endfor %} Rating -
+                {% for i in range(0, review.price) %} &dollar; {% endfor %} Price 
+                </div>
+                {% endfor %}
+        
+
+        
+        </div>
     </div>
-</div>
 </body>
 </html>

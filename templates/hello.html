@@ -11,13 +11,14 @@
 {% if logged_in %}
 <div class="login-page">
     <div class="titeltop">
-        <h1>Hello {{ user.nickname() }}, to the Restaurant-Visit Manager!</h1>
+        <h1>Hello {{ user.nickname() }}, to Marevili your Restaurant-Visit Manager!</h1>
         <p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
 
         <div class="input-button">
             <a href="input.html"><button class="btn btn-info" role="button">New Restaurant</button></a>
             <a href="recommendation.html"><button class="btn btn-info" role="button">Recommendation</button></a>
         </div>
+        
             <table>
                 <thead>
                     <tr>
@@ -47,9 +48,9 @@
 {% else %}
 <div class="notlog">
     <div class="jumbotron">
-        <h1>Welcome, to the Restaurant-Visit Manager!</h1>
+        <h1>Welcome, to Marevili your Restaurant-Visit Manager!</h1>
         <p>Please login here:</p>
-        <p><a href="{{ login_url }}"><button class="btn-primary btn-lg"  role="button">Google-Login</button></a></p>
+        <p><a href="{{ login_url }}"><button class="loginbtn"  role="button">Google-Login</button></a></p>
     </div>
 </div>
 {% endif %}

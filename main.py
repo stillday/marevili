@@ -71,6 +71,7 @@ class DetailHandler(BaseHandler):
     def get(self, redetail_id):
         redetail = Gastro.get_by_id(int(redetail_id))
 
+
         q = urllib.urlencode({
             "query": (redetail.name + " in " + redetail.place).encode(encoding='ascii', errors='ignore'),
             "key": "AIzaSyBKdIPR1Q6TzIvjJuJzIyvybo6Mg1JLm64"
@@ -81,7 +82,9 @@ class DetailHandler(BaseHandler):
 
         restaurant_info = json.loads(result.content)
 
-        params = {"redetail": redetail, "restaurant_info": restaurant_info}
+        reviews = Review.query(Review.restaurant == redetail_id).fetch()
+
+        params = {"redetail": redetail, "restaurant_info": restaurant_info, "reviews": reviews}
         return self.render_template("rest_details.html", params=params)
 
 
@@ -102,21 +105,26 @@ class ReviewHandler(BaseHandler):
         if not user:
             self.render_template("permissiondenied.html", params={"login_url": users.create_login_url('/')})
             return
-        #user = self.request.get("newuser")
+
         review = self.request.get("newreview")
         price = int(self.request.get("newprice"))
         rating = int(self.request.get("newrating"))
         visit = self.request.get("newvisit")
 
-        reviews = Gastro.get_by_id(int(reviews_id))
-        lokal = Gastro(review_user = user.email(),new_review = review, new_price = price, new_rating = rating, new_visit = visit)
-        reviews.note = new_review
-        reviews.price = new_price
-        reviews.rating = new_rating
-        reviews.visit = new_visit
+
+        reviews = Review(user = user.email(),note = review, price = price, rating = rating, visit = visit, restaurant = reviews_id)
         reviews.put()
         redetail = Gastro.get_by_id(int(reviews_id))
-        params = {"redetail": redetail}
+        q = urllib.urlencode({
+            "query": (redetail.name + " in " + redetail.place).encode(encoding='ascii', errors='ignore'),
+            "key": "AIzaSyBKdIPR1Q6TzIvjJuJzIyvybo6Mg1JLm64"
+        })
+
+        url = "https://maps.googleapis.com/maps/api/place/textsearch/json?" + q
+        result = urlfetch.fetch(url)
+
+        restaurant_info = json.loads(result.content)
+        params = {"redetail": redetail, "restaurant_info": restaurant_info}
         return self.render_template("rest_details.html", params=params)
 
 
@@ -158,7 +166,7 @@ class RecomInputHandler(BaseHandler):
         recprice = int(self.request.get("price")) #Price Ranking
         reckitchen = self.request.get("kueche") #what kind of kitchen
 
-        recom = Recommendation(user = user.email(), name = recname, street = recstreet, plz = recplz, place = recplace, by = recfrom, user_self = recuserself, price = recprice, kitchen = reckitchen)
+        recom = Recommendation(user = user.nickname(), name = recname, street = recstreet, plz = recplz, place = recplace, by = recfrom, user_self = recuserself, price = recprice, kitchen = reckitchen)
         recom.put()
         return self.redirect_to("rec-list")
 
@@ -209,7 +217,7 @@ class RecomToRest(BaseHandler):
         rating = int(self.request.get("rating"))  # Self Rating of the Restaurant
         rekitchen = self.request.get("kueche")  # what for kitchen gives in the Restaurant
 
-        lokal = Gastro(user=user.email(), name=rename, street=restreet, plz=replz,
+        lokal = Gastro(user=user.nickname(), name=rename, street=restreet, plz=replz,
                        place=replace, note=reinfo, time=revisit, kitchen=rekitchen,
                        rating=rating, price=price)
         lokal.put()
