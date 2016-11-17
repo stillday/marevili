@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Recommendation Details</title>
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/rest_detail.css">
+    
      <script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=AIzaSyBKdIPR1Q6TzIvjJuJzIyvybo6Mg1JLm64"></script>
 
     <script>
@@ -46,9 +48,10 @@
     </script>
 </head>
 <body id="detail-site">
-<div class="">
+
     <div class="recom-detail-info">
         <a href="/recommendation.html"><button class="btn btn-primary" type="button">Back</button></a>
+    </div>
         <form action="/recommendation/{{ recoms.key.id() }}/details">
             <div class="recom-detail-left">
                  <div class="detail-header">
@@ -81,9 +84,10 @@
 
 
             <div id="map-canvas"></div>
+                
             </div>
         </form>
-    </div>
-</div>
+    
+
 </body>
 </html>
