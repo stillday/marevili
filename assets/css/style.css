@@ -38,7 +38,7 @@ index
 
 /* Not Login */
 .notlog {
-    background-image: url(food-salad-restaurant-person.jpg);
+    background-image: url(food-salad-restaurant-person.JPG);
     background-size: 100% 100%;
     position:  fixed;
     top: 0;
@@ -201,7 +201,7 @@ th {
 /* Login View */
 
 .login-page {
-    background-image: url(food-salad-restaurant-person.jpg);
+    background-image: url(food-salad-restaurant-person.JPG);
     background-size: 100% 100%;
     position:  fixed;
     top: 0;
@@ -235,7 +235,7 @@ th {
 /* input area */
 
 .input-site {
-    background-image: url(food-salad-restaurant-person.jpg);
+    background-image: url(food-salad-restaurant-person.JPG);
     background-size: 100% 100%;
     position:  fixed;
     top: 0;
@@ -276,7 +276,7 @@ th {
 /* Recommendation input area */
 
 .recom-input-site {
-    background-image: url(food-salad-restaurant-person.jpg);
+    background-image: url(food-salad-restaurant-person.JPG);
     background-size: 100% 100%;
     background-attachment: fixed;
     width: auto;
