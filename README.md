@@ -11,3 +11,4 @@ In Marevili kann man jedes Restaurant Bewerten.
 
 Marevili dient auch als Sammlung von Restaurant Empfehlungen.
 
+Der Code steht unter Lizenz
