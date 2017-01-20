@@ -36,22 +36,23 @@ index
 
 
 
-/* Not Login */
-.notlog {
-    background-image: url(food-salad-restaurant-person.JPG);
-    background-size: 100% 100%;
-    position:  fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+/* Body imgage */
+body {
+    background-image: url("/assets/img/food-salad-restaurant-person%20(1).jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
     
 }
+
+/* Not Login */
     /* CSS Code from Bootstrap from Startpage */
 .jumbotron {
     margin-top: 5%;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 31%;
+    margin-right: 31%;
     padding-top: 30px;
     padding-bottom: 30px;
     margin-bottom: 30px;
@@ -201,7 +202,7 @@ th {
 /* Login View */
 
 .login-page {
-    background-image: url(food-salad-restaurant-person.JPG);
+    background-image: url("/assets/img/food-salad-restaurant-person.JPG");
     background-size: 100% 100%;
     position:  fixed;
     top: 0;
@@ -235,7 +236,7 @@ th {
 /* input area */
 
 .input-site {
-    background-image: url(food-salad-restaurant-person.JPG);
+    background-image: url("/assets/img/food-salad-restaurant-person.JPG");
     background-size: 100% 100%;
     position:  fixed;
     top: 0;

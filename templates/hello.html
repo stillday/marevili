@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
+<head lang="de">
     <meta charset="UTF-8">
     <title>Restaurant-Visit Manager</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/button.css">
+    
+
 </head>
 <body>
 
 {% if logged_in %}
 <div class="login-page">
     <div class="titeltop">
-        <h1>Hello {{ user.nickname() }} to Marevili, your Restaurant-Visit Manager!</h1>
+        <h1>Willkommen {{ user.nickname() }} in Marevili, dein Restaurant-Visit Manager!</h1>
         <p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
 
         <div class="input-button">
-            <a href="input.html"><button class="btn btn-info" role="button">New Restaurant</button></a>
-            <a href="recommendation.html"><button class="btn btn-info" role="button">Recommendation</button></a>
+            <a href="input.html"><button class="btn btn-info" role="button">Neues Restaurant</button></a>
+            <a href="recommendation.html"><button class="btn btn-info" role="button">Empfehlung</button></a>
         </div>
         
             <table>
@@ -34,7 +37,7 @@
                 {% for gastro in gastros %}
                     <tr>
                         <td>{{ gastro.kitchen }}</td>
-                        <td><a href="/restaurant/{{ gastro.key.id() }}/details">{{ gastro.name }}</td>
+                        <td><a href="/restaurant/{{ gastro.key.id() }}/details">{{ gastro.name }}</a></td>
                         <td>{{ gastro.plz }}</td>
                         <td>{{ gastro.place }}</td>
                         <td>{% for i in range(0, gastro.price) %} &dollar; {% endfor %}</td>
@@ -43,16 +46,22 @@
                 {% endfor %}
                 </tbody>
             </table>
-        <p>Version: Alpha 0.12</p>
+        <p>Version: Alpha 0.17</p>
     </div>
 </div>
 {% else %}
 <div class="notlog">
     <div class="jumbotron">
-        <h1>Welcome to Marevili, your Restaurant-Visit Manager!</h1>
-        <p>Please login here:</p>
-        <p><a href="{{ login_url }}"><button class="loginbtn"  role="button">Google-Login</button></a></p>
-        <p>Version: Alpha 0.12</p>
+        <h1>Willkommen in Marevili, dein Restaurant-Visit Manager!</h1>
+            <p>Bitte hier Einloggen:</p>
+                <p>
+                    <a href="{{ login_url }}">
+                        <button class="loginBtn loginBtn--google">
+                            Login with Google
+                        </button>
+                </a>
+            </p>
+        <p><font size="3">Version: Alpha 0.175</font></p>
     </div>
 </div>
 {% endif %}

@@ -20,16 +20,19 @@ from model import Gastro, Recommendation, Review
 
 class MainHandler(BaseHandler):
     def get(self):
-        gastros = Gastro.query().fetch()
         user = users.get_current_user()
-        logged_in = user is not None
 
-        params = {"gastros": gastros, "user": user, "logged_in": logged_in}
+        if user:
+            logged_in = True #is user Login
+            nickname = user.nickname() #user name
+            logout_url = users.create_logout_url('/') #url for logout
+            gastros = Gastro.query().fetch() #handing over of the restaurant list
+            params = {"logged_in": logged_in, "nickname": nickname, "logout_url": logout_url, "user": user, "gastros":gastros} #handing over all information for rendering the webpage
 
-        if logged_in:
-            params["logout_url"] = users.create_logout_url('/')
         else:
-            params["login_url"] =  users.create_login_url('/')
+            logged_in = False #is user Login
+            login_url = users.create_login_url('/') #url for login
+            params = {"logged_in": logged_in, "login_url": login_url, "user": user} #handing over all information for rendering the login page
 
         return self.render_template("hello.html", params=params)
 
