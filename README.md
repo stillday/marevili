@@ -4,11 +4,7 @@ Hello, to the Marevili your Restaurant-Visit Manager!
 
 # Info
 
-Bei Marevili handelt es sich um ein Programm zum verhalten und sammeln 
-von Besuchten Restaurants.
-
-In Marevili kann man jedes Restaurant Bewerten. 
-
-Marevili dient auch als Sammlung von Restaurant Empfehlungen.
-
-Der Code steht unter Lizenz
+Was ist Marevili?
+Marevili ist ein Projekt von mir, in dem man Besuchte und Empfohlende Restaurants Sammeln und verwalten kann.
+Dieses Projekt ist ein Privat Projekt und dient nicht zum Kopieren.
+Es handelt sich aktuell um eine Alpha Version.
