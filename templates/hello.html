@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/button.css">
+    <script src="/assets/js/menue.js"></script>
     
 
 </head>
@@ -14,11 +15,21 @@
 {% if logged_in %}
 <div class="login-page">
     
-    
+    <ul class="topnav" id="myTopnav">
+      <li><a class="active" href="hello.html">Home</a></li>
+      <li><a href="input.html">Neues Restaurant</a></li>
+      <li><a href="recommendation.html">Empfehlungen</a></li>
+      <li><a href="#about">About</a></li>
+      <li class="icon">
+        <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
+      </li>
+        
+        <a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button>
+    </ul>    
    
     <div class="titeltop">
         <h1>Willkommen {{ user.nickname() }} in Marevili, dein Restaurant-Visit Manager!</h1>
-        <p class="logout"><a href="{{ logout_url }}"><button class="btn btn-danger" role="button">Logout</button></p>
+        
 
         <div class="input-button">
             <a href="input.html"><button class="btn btn-info" role="button">Neues Restaurant</button></a>
